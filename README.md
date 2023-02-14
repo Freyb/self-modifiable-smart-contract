@@ -9,7 +9,7 @@ Professor: Luigi Liquori
 4. Current solutions and limitations  
     4.1 Ethereum  
     4.2 Tezos  
-        4.2.1 Higher-order programming  
+         4.2.1 Higher-order programming  
     4.3 Hyperledger Fabric  
 5. Ethereum Improvement Proposal 
 6. Conclusions 
