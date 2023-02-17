@@ -1,18 +1,24 @@
 import smartpy as sp
 
-# Define the contract class
 class ModifiableContract(sp.Contract):
     def __init__(self, owner):
-        self.init(owner = owner)
-    
-    # Define the "call" function, which can be used to modify the contract
+        self.init(owner=owner, value=0)
+
     @sp.entry_point
     def call(self, params):
-        # Check if the caller is the owner of the contract
         sp.verify(sp.sender == self.data.owner)
-        
-        # Update the contract based on the parameters provided
         self.data.update(params)
-        
+
+    @sp.entry_point
+    def call_option(self, params):
+        sp.verify(sp.amount == self.data.value)
+        sp.transfer(self.data.owner, sp.amount)
+        self.data.update(params)
+
+    def update(self, params):
+        self.data.value += 1
+        self.data.new_storage = params.new_storage
+        self.data.new_code = params.new_code
+
 # Create an instance of the contract, with the specified owner address
-contract = ModifiableContract
+contract = ModifiableContract(sp.address("tz1..."))
